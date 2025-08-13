@@ -1,42 +1,31 @@
-export default function PostTable({ posts, setPosts }) {
-  const handleDelete = (index) => {
-    setPosts(posts.filter((_, i) => i !== index));
-  };
-
+export default function PostTable({ posts, deletePost }) {
   return (
-    <table className="min-w-full bg-white border border-gray-200">
-      <thead>
+    <table className="min-w-full border-collapse border rounded-lg shadow">
+      <thead className="bg-gray-100">
         <tr>
-          <th className="py-2 px-4 border-b">Title</th>
-          <th className="py-2 px-4 border-b">Author</th>
-          <th className="py-2 px-4 border-b">Image</th>
-          <th className="py-2 px-4 border-b">Actions</th>
+          <th className="border px-4 py-2 text-left">Title</th>
+          <th className="border px-4 py-2 text-left">Author</th>
+          <th className="border px-4 py-2 text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
-        {posts.map((post, index) => (
-          <tr key={index}>
-            <td className="py-2 px-4 border-b">{post.title}</td>
-            <td className="py-2 px-4 border-b">{post.author}</td>
-            <td className="py-2 px-4 border-b">
-              {post.image && (
-                <img
-                  src={post.image}
-                  alt="Post"
-                  className="w-16 h-16 object-cover rounded"
-                />
-              )}
-            </td>
-            <td className="py-2 px-4 border-b">
+        {posts.map((p) => (
+          <tr key={p.id} className="hover:bg-gray-50">
+            <td className="border px-4 py-2">{p.title}</td>
+            <td className="border px-4 py-2">{p.author}</td>
+            <td className="border px-4 py-2 text-center">
               <button
-                onClick={() => handleDelete(index)}
-                className="bg-red-500 text-white px-3 py-1 rounded"
+                className="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600"
+                onClick={() => deletePost(p.id)}
               >
                 Delete
               </button>
             </td>
           </tr>
         ))}
+        {posts.length === 0 && (
+          <tr><td className="border px-4 py-3 text-center" colSpan={3}>No posts</td></tr>
+        )}
       </tbody>
     </table>
   );
