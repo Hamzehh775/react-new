@@ -21,8 +21,6 @@ const pool = new Pool({
   port: Number(process.env.PGPORT || 5432),
 });
 
-// --- USERS ROUTES ---
-
 // GET all users
 app.get("/api/users", async (req, res) => {
   try {
